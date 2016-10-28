@@ -31,7 +31,8 @@ class InstanceTest extends UnitTest {
       (Running, Dropped, Seq(Unreachable, Dropped))
     )
 
-    stateChangeCases.foreach { case (from, to, withTasks) =>
+    stateChangeCases.foreach {
+      case (from, to, withTasks) =>
         val f = new Fixture
 
         val (instance, tasks) = f.instanceWith(from, withTasks)
@@ -56,7 +57,8 @@ class InstanceTest extends UnitTest {
       val tasks: Map[Task.Id, Task] = f.tasks(Condition.Running, Condition.Running)
         .values
         .zip(startTimestamps)
-        .map { case (task, startTime) =>
+        .map {
+          case (task, startTime) =>
             val ephemeralTask = task.asInstanceOf[Task.LaunchedEphemeral]
             val newStatus: Task.Status = ephemeralTask.status.copy(startedAt = startTime)
             task.taskId -> ephemeralTask.copy(status = newStatus)
@@ -85,7 +87,8 @@ class InstanceTest extends UnitTest {
       val tasks: Map[Task.Id, Task] = f.tasks(Condition.Running, Condition.Staging)
         .values
         .zip(startTimestamps)
-        .map { case (task, startTime) =>
+        .map {
+          case (task, startTime) =>
             val ephemeralTask = task.asInstanceOf[Task.LaunchedEphemeral]
             val newStatus: Task.Status = ephemeralTask.status.copy(startedAt = startTime)
             task.taskId -> ephemeralTask.copy(status = newStatus)
